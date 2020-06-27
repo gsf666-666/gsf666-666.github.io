@@ -1,0 +1,210 @@
+
+<!DOCTYPE html>
+<html lang="en" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Android终端Termux安装MariaDB/MySQL数据库 - 顾生飞的个人博客</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="顾生飞,"> 
+    <meta name="description" content="前言Android移动设备并非设计为服务器（尽管其中一些功能强大），但是，随着技术的进步以及我们可以用手机做更多的事情，总是很有趣的。
+今天，借助Termux应用程序，我们将了解如何在Android,"> 
+    <meta name="author" content="顾生飞的个人博客"> 
+    <link rel="alternative" href="atom.xml" title="顾生飞的个人博客" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads"
+        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">顾生飞的个人博客</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://yoursite.com"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">Android终端Termux安装MariaDB/MySQL数据库</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">Android终端Termux安装MariaDB/MySQL数据库</h1>
+        <div class="stuff">
+            <span>六月 27, 2020</span>
+            
+
+        </div>
+        <div class="content markdown">
+            <p>前言<br>Android移动设备并非设计为服务器（尽管其中一些功能强大），但是，随着技术的进步以及我们可以用手机做更多的事情，总是很有趣的。</p>
+<p>今天，借助Termux应用程序，我们将了解如何在Android上安装MySQL或MariaDB数据库。为此，只需执行一些简单的命令即可，我们将在Android中拥有一个MySQL数据库服务器；功能齐全，随时可以执行查询。如果我们想将其投入生产，只要我们配置安全性就可以做到。</p>
+<p>什么是MariaDB<br>MariaDB数据库管理系统是MySQL的一个分支，主要由 MySQL 的创始人 Michael Widenius 主导开发开源社区在维护的，MariaDB的目的是完全兼容MySQL，包括API和命令行，使之能轻松成为MySQL的代替品。在存储引擎方面，使用 XtraDB 来代替 MySQL 的 InnoDB。 </p>
+<p>MariaDB是目前最受关注的MySQL数据库衍生版，也被视为开源数据库MySQL的替代品。 MariaDB虽然被视为MySQL数据库的替代品，但它在扩展功能、存储引擎以及一些新的功能改进方面都强过MySQL。而且从MySQL迁移到MariaDB也是非常简单的。</p>
+<p>虽然他们确实存在很多差异，但是在这里，我们将使用 MariaDB 和 MySQL 作为同义词。也就是说，如果您看到我说 MariaDB 不用感到困惑，那就是 MySQL。反之亦然。</p>
+<p>如何在Termux中安装<br>安装好 Termux 后更新终端软件包<br>apt update</p>
+<p>apt upgrade<br>在这两种情况下，如果应用程序都询问，请选择“是”，即输入字母y。此步骤非常重要，因为它将更新在我们的移动设备上安装 MySQL 所需的库。</p>
+<p>安装 MariaDB<br>好的，一旦您更新了系统，我们将安装 MariaDB 软件包。为此，执行：</p>
+<p>pkg install mariadb<br>这里有一点需要注意：如果安装失败可能是因为没有名为 my.cnf.d 的目录。然后，必须创建该目录，导航到如下的位置查看该目录是否存在：</p>
+<p>cd /data/data/com.termux/files/usr/etc<br>使用命令 ls 查看 etc 目录下的内容，如果目录下没有出现名为 my.cnf.d 的文件夹，则使用如下命令创建一个：</p>
+<p>mkdir my.cnf.d<br>如果 my.cnf.d 目录已存在，则不执行任何操作，然后返回主页：</p>
+<p>cd $home<br>配置 MariaDB<br>一旦创建目录（如果目录不存在），我们将执行以下命令：</p>
+<p>mysql_install_db<br>mysql_install_db 初始化 MariaDB 数据目录，并在数据库中创建 系统表mysql（如果不存在）。MariaDB使用这些表来管理特权，角色和插件。</p>
+<p>启动 MariaDB 服务器<br>之后，我们要做的就是启动 MySQL 守护进程（如果我们重启手机或Termux，也应该这样做）。</p>
+<p>mysqld<br>或</p>
+<p>mysqld_safe -u root &amp;<br>mysqld_safe 与 root 用户一起运行的；“＆”号将在后台运行。</p>
+<p>mysql与mysqld的区别：mysqld 是服务端程序（即MySQL的服务器）要想使用客户端程序，该程序必须运行，因为客户端通过连接服务器来访问数据库；mysql 是命令行客户端程序。</p>
+<p>mysqld_safe 与 mysqld 区别：直接运行 mysqld 程序来启动 MySQL 服务的方法很少见。mysqld_safe 脚本会在启动 MySQL 服务器后继续监控其运行情况，并在其死机时重新启动它。mysql.server 脚本其实也是调用 mysqld_safe 脚本去启动 MySQL 服务器的。</p>
+<p>mysqld_safe 相当于多了一个守护进程，当 mysqld 挂了会自动把 mysqld 进程拉起来。</p>
+<p>访问数据库<br>要访问 MariaDB 数据库服务器，请输入：</p>
+<p>mysql -u root -p<br>但是 MariaDB 数据库服务器，默认情况下，是没有密码的，只需要输入以下命令即可登录：</p>
+<p>mysql<br>默认登录后即可为 root 帐号设置一个密码。</p>
+<p>配置 MariaDB 远程登录<br>有时候，为了开发或操作方便，可以使用电脑远程访问和管理手机里的数据库。默认情况下，为了安全 MariaDB 只允许本地登录，如果要开启远程连接可进行以下配置。</p>
+<p>创建一个可远程登录的用户：</p>
+<p>CREATE USER ‘username’@’%’ IDENTIFIED BY ‘password’;<br>% 通配符表示创建外网可访问的用户。</p>
+<p>用户授权：</p>
+<p>GRANT ALL privileges ON databasename.tablename TO ‘username’@’%’;<br>如果要授予该用户对所有数据库和表的相应操作权限则可用 * 表示，如 <em>.</em></p>
+<p>刷新授权：</p>
+<p>flush privileges;<br>通过以上配置即可通过局域网内其它设备登录手机里的数据库进行操作。</p>
+<p>注：由于 my.cnf.d 目录下并未找到 mysqld.cnf 配置文件，所以并未修改注释 bind-address 这个选项也可进行远程登录。</p>
+<p>停止 MariaDB 服务器<br>要停止 MariaDB 服务器，请输入：</p>
+<p>pkill mysql<br>或者，使用单词“MySQL”取其进程 ID ，使用命令 grep，然后杀死他们kill -9 [ID]，-9 是发送终止信号。</p>
+<p>要查找执行的进程ID：</p>
+<p>ps aux | grep mysql<br>拥有ID后，请杀死它们：</p>
+<p>kill -9 15423<br>可选，但建议：安全的 MariaDB<br>MariaDB 的安装已经可以正常工作，并且如果我们只打算使用它，那么我们就不必在意安全性。但是，相反，如果您想通过良好的习惯来确保它，可以这样做。为此，执行：</p>
+<p>mysql_secure_installation<br>这将为您提供一个向导，该向导将帮助您确保安装MySQL：输入密码，删除测试特权等。</p>
+<p>全文来自于<a href="https://blog.csdn.net/hwx865/article/details/102693223" target="_blank" rel="noopener">https://blog.csdn.net/hwx865/article/details/102693223</a></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='http://link.hhtjim.com/163/425570952.mp3'></li>
+                        
+                    
+                        
+                            <li title='1' data-url='http://link.hhtjim.com/163/425570952.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</html>
